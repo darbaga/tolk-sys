@@ -1,6 +1,6 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-    }
+#[link(name = "tolk")]
+extern {
+    fn Tolk_Load();
+    fn Tolk_Unload();
 }
+
