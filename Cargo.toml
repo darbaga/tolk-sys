@@ -1,0 +1,7 @@
+[package]
+authors = ["Dhruv kumar <darbaga10@gmail.com>"]
+name = "tolk-sys"
+version = "0.1.0"
+
+[dependencies]
+libc = "0.2.20"
