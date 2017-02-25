@@ -1,5 +1,5 @@
 #[link(name = "tolk")]
-extern {
+extern "C" {
     pub fn Tolk_Load();
     pub fn Tolk_IsLoaded() -> bool;
     pub fn Tolk_Unload();
