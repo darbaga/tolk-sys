@@ -1,8 +1,8 @@
 #[link(name = "tolk")]
 extern {
-    fn Tolk_Load();
-    fn Tolk_IsLoaded() -> bool;
-    fn Tolk_Unload();
+    pub fn Tolk_Load();
+    pub fn Tolk_IsLoaded() -> bool;
+    pub fn Tolk_Unload();
 }
 
 #[test]
