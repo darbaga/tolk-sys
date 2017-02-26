@@ -5,6 +5,7 @@ description = "Raw ffi bindings to Tolk.dll"
 repository = "https:?/github.com/darbaga/tolk-sys"
 readme = "README.md"
 categories = ["external-ffi-bindings"]
+license = "MIT"
 version = "0.1.0"
 
 [dependencies]
