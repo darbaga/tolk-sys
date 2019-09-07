@@ -10,3 +10,6 @@ version = "0.1.0"
 
 [dependencies]
 libc = "0.2.20"
+
+[build-dependencies]
+cc = "1"
