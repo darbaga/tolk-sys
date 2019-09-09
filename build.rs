@@ -1,4 +1,30 @@
-fn main() {
+use std::env;
+use std::fs;
+use std::io;
+use std::path::PathBuf;
+
+fn main() -> io::Result<()> {
+    let out_dir = env::var("OUT_DIR").unwrap();
+    let manifest = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let target = env::var("TARGET").unwrap();
+    let libs = if target.contains("64") {
+        format!("{}/vendor/tolk/libs/x64", manifest)
+    } else {
+        format!("{}/vendor/tolk/libs/686", manifest)
+    };
+    let mut target: PathBuf = out_dir.into();
+    target.pop();
+    target.pop();
+    target.pop();
+    let target = target.into_os_string().into_string().unwrap();
+    for entry in fs::read_dir(libs)? {
+        let path = entry.unwrap().path();
+        let file_name = path.file_name().unwrap().to_os_string().into_string().unwrap();
+        let out = format!("{}/{}", &target, &file_name);
+        fs::copy(&path, out)?;
+        let out = format!("{}/examples/{}", &target, &file_name);
+        fs::copy(&path, out)?;
+    }
     let root = "vendor/tolk";
     cc::Build::new()
         .cpp(true)
@@ -17,4 +43,5 @@ fn main() {
         .file(format!("{}/src/zt.c", root))
         .compile("tolk");
     println!("cargo:rustc-flags=-l User32 -l Ole32 -l OleAut32");
+    Ok(())
 }
