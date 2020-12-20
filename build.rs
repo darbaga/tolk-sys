@@ -10,7 +10,7 @@ fn main() -> io::Result<()> {
     let libs = if target.contains("64") {
         format!("{}/vendor/tolk/libs/x64", manifest)
     } else {
-        format!("{}/vendor/tolk/libs/686", manifest)
+        format!("{}/vendor/tolk/libs/x86", manifest)
     };
     let mut target: PathBuf = out_dir.into();
     target.pop();
@@ -19,7 +19,12 @@ fn main() -> io::Result<()> {
     let target = target.into_os_string().into_string().unwrap();
     for entry in fs::read_dir(libs)? {
         let path = entry.unwrap().path();
-        let file_name = path.file_name().unwrap().to_os_string().into_string().unwrap();
+        let file_name = path
+            .file_name()
+            .unwrap()
+            .to_os_string()
+            .into_string()
+            .unwrap();
         let out = format!("{}/{}", &target, &file_name);
         fs::copy(&path, out)?;
         let out = format!("{}/examples/{}", &target, &file_name);
